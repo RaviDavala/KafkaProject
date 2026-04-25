@@ -33,4 +33,5 @@ def device_usage_analytics():
         round(col("total_watch_time") / col("complete_watch_time") * 100, 2)
     ).drop(col("complete_watch_time"))
 
-    return final_df
+    return final_df.orderBy("watch_time_percentage", ascending=False)
+

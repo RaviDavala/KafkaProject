@@ -12,5 +12,5 @@ SELECT
 FROM kafka_ott.silver.watch_events_silverv2
 WHERE event_time >= current_timestamp() - INTERVAL '24 hours'
 GROUP BY content_id, title
-ORDER BY total_watch_hours DESC
+ORDER BY total_watch_hours DESC, total_views desc
 LIMIT 10;

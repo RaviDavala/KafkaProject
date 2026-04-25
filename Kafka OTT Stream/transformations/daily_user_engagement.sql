@@ -10,5 +10,5 @@ SELECT
     ) / COUNT(DISTINCT user_id)
   , 2)), 0) as avg_watch_time_per_user
 FROM kafka_ott.silver.watch_events_silverv2
-GROUP BY event_date
-ORDER BY event_date desc;
+GROUP BY date
+ORDER BY date desc;

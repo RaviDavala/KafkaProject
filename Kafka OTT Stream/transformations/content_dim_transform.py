@@ -21,7 +21,7 @@ def content_dim_quarantine():
      .withColumn("quarantine_time", current_timestamp())
 
 
-
+#dropping the quarantined data in the previous table before moving the data to silver using dlt expectations
 @dlt.table(name=f"{catalog_name}.{silver_schema}.content_dim_silver")
 @dlt.expect_or_drop(
     "Null data",
@@ -51,7 +51,7 @@ def content_dim_silver():
     return df_bronze.withColumn("validated_at", current_timestamp())
 
 
-
+#using dlt merge feature using SCD-1 not keeping any history of the dimension data
 dlt.create_streaming_table(
     name=f"{catalog_name}.{gold_schema}.content_dim_gold"
 )

@@ -10,4 +10,4 @@ SELECT
   SUM(CASE WHEN error_reason = 'Negative watch_time' THEN 1 ELSE 0 END) AS invalid_neg_watch_time
 FROM kafka_ott.silver.watch_events_quarantinev2
 GROUP BY DATE(ingested_at)
-ORDER BY date DESC;
+ORDER BY DATE(ingested_at) DESC;

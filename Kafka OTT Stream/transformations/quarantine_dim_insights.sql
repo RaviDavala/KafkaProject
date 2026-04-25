@@ -8,4 +8,4 @@ SELECT
   COUNT(*) - COUNT(release_year) AS invalid_release_year
 FROM kafka_ott.silver.content_dim_quarantine
 GROUP BY DATE(ingested_at)
-ORDER BY date DESC;
+ORDER BY date(ingested_at) DESC;

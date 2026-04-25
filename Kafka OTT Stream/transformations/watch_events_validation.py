@@ -26,6 +26,7 @@ def watch_events_quarantine():
      .withColumn("quarantine_time", current_timestamp())
 
 
+#similar to the quarantined dimension table, here the events will also be quarantined for further investigation and analysis before moving to silver
 @dlt.table(
     name=f"{catalog_name}.{silver_schema}.watch_events_silverV2"
 )

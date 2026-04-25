@@ -2,8 +2,7 @@ from pyspark.sql.functions import *
 from pyspark.sql.types import *
 import dlt
 
-spark.conf.set("spark.sql.session.timeZone", "UTC")
-
+#importing all the required config's from the pipeline parameters
 bootstrap = spark.conf.get("bootstrap_server")
 api_key = spark.conf.get("kafka_api_key")
 api_secret = spark.conf.get("kafka_secret")
@@ -12,6 +11,7 @@ dim_topic = spark.conf.get("kafka_topic_dim")
 catalog_name = spark.conf.get("catalog_name")
 bronze_schema = spark.conf.get("bronze_schema")
 
+#creates a new bronze table if it doesn't exist in the given schema
 @dlt.table(
     name=f"{catalog_name}.{bronze_schema}.watch_events_bronzeV2"
 )
@@ -52,7 +52,7 @@ def kafka_bronze_events():
 
     return df.withColumn("ingested_at", current_timestamp())
 
-
+#second bronze table for loading the dimension data from the second kafka topic
 @dlt.table(
     name = f"{catalog_name}.{bronze_schema}.content_dim_bronze"
 )

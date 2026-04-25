@@ -20,7 +20,7 @@ def performance_by_genre():
     )
 
     agg_df = joined.groupBy("genre").agg(
-        sum("watch_time_hours").alias("total_watch_time"),
+        round(sum("watch_time_hours"), 2).alias("total_watch_time"),
         count(when(col("event_type_clean") == "play", True)).alias("total_views"),
         countDistinct("user_id").alias("unique_users")
     )
@@ -34,4 +34,5 @@ def performance_by_genre():
         )
     )
 
-    return final
+    return final.orderBy(col("total_watch_time").desc(), col("total_views").desc())
+    

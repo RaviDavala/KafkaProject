@@ -20,7 +20,7 @@ def content_dropoff_analysis():
         .select("user_id", "content_id", "watch_time_hours")
 
     agg_fact = fact_table.groupBy("content_id").agg(
-        sum("watch_time_hours").alias("total_watch_time"),
+        round(sum("watch_time_hours"),2).alias("total_watch_time"),
         countDistinct("user_id").alias("unique_users")
     ).withColumn(
         "avg_watch_time",
@@ -49,4 +49,5 @@ def content_dropoff_analysis():
         round(100 - col("completion_rate"), 2)
     )
 
-    return final
+    return final.orderBy(col("dropoff_rate").desc())
+                         

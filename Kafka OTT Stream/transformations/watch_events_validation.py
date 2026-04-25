@@ -66,9 +66,10 @@ def watch_events_silver():
     )
 
     df = df.withWatermark("event_time", "10 minutes") \
-        .dropDuplicates(["user_id", "content_id", "event_time", "watch_time_sec"])
+        .dropDuplicates(["user_id", "content_id", "event_time"])
 
-    df = df.withColumn("watch_time_minutes", col("watch_time_sec") / 60) \
+    df = df.withColumn("watch_time_minutes", round(col("watch_time_sec") / 60, 2)) \
+           .withColumn("watch_time_hours", round(col("watch_time_sec") / 3600, 2)) \
            .withColumn("event_date", to_date(col("event_time"))) \
            .withColumn("event_hour", hour(col("event_time")))
 

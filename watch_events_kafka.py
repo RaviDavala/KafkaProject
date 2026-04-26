@@ -18,7 +18,6 @@ producer = KafkaProducer(
     value_serializer=lambda v: json.dumps(v).encode("utf-8")
 )
 
-# 🎬 Movie catalog
 movie_catalog = [
     {"content_id": "MOV100", "title": "Dark Night"},
     {"content_id": "MOV101", "title": "Fast Run"},
@@ -55,7 +54,7 @@ movie_catalog = [
     {"content_id": None, "title": None}
 ]
 
-# 🔥 skew → popular movies
+
 popular_ids = ["MOV100", "MOV101", "MOV108", "ANI126", "SER121", "ANI129"]
 
 devices = ["mobile", "tv", "tablet", "web", "smarttv", "android", "iphone", "ratbdv", "windows", "mac", "linux", "bla bla", None]
